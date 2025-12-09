@@ -1,0 +1,2 @@
+insert into location(name, country, city, locationCode) values('Sabiha Gokcen Airport', 'Turkey', 'Istanbul', 'SAW');
+insert into location(name, country, city, locationCode) values('Istanbul Airport', 'Turkey', 'Istanbul', 'IST');
