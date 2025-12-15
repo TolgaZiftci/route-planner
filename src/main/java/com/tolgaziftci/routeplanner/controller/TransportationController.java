@@ -2,6 +2,7 @@ package com.tolgaziftci.routeplanner.controller;
 
 import com.tolgaziftci.routeplanner.dao.LocationDao;
 import com.tolgaziftci.routeplanner.dao.TransportationDao;
+import com.tolgaziftci.routeplanner.dao.TransportationSummary;
 import com.tolgaziftci.routeplanner.dto.TransportationDto;
 import com.tolgaziftci.routeplanner.repository.LocationRepository;
 import com.tolgaziftci.routeplanner.repository.TransportationRepository;
@@ -61,5 +62,11 @@ public class TransportationController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/new/{origin}/{dest}")
+    public ResponseEntity<List<TransportationSummary>> findTransportationByIdRaw(@PathVariable int origin, @PathVariable int dest) {
+        List<TransportationSummary> response = transportationRepository.findKeysByOriginLocation_IdAndDestLocation_Id(origin, dest);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
