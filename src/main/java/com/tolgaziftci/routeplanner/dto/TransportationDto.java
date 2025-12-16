@@ -6,14 +6,16 @@ public class TransportationDto {
     private int originLocation;
     private int destLocation;
     private TransportationType type;
+    private int[] operatingDays;
 
     public TransportationDto() {
     }
 
-    public TransportationDto(int originLocation, int destLocation, TransportationType type) {
+    public TransportationDto(int originLocation, int destLocation, TransportationType type, int[] operatingDays) {
         this.originLocation = originLocation;
         this.destLocation = destLocation;
         this.type = type;
+        this.operatingDays = operatingDays;
     }
 
     public int getOriginLocation() {
@@ -38,5 +40,13 @@ public class TransportationDto {
 
     public void setType(TransportationType type) {
         this.type = type;
+    }
+
+    public int[] getOperatingDays() {
+        return operatingDays;
+    }
+
+    public void setOperatingDays(int[] operatingDays) {
+        this.operatingDays = operatingDays;
     }
 }

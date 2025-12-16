@@ -19,7 +19,8 @@ public interface TransportationRepository extends JpaRepository<TransportationDa
                     t.id,
                     t.originLocation.id,
                     t.destLocation.id,
-                    t.type
+                    t.type,
+                    t.operatingDays
                 )
                 from transportation t
                 where t.originLocation.id = :originLocation
@@ -34,7 +35,8 @@ public interface TransportationRepository extends JpaRepository<TransportationDa
                     t.id,
                     t.originLocation.id,
                     t.destLocation.id,
-                    t.type
+                    t.type,
+                    t.operatingDays
                 )
                 from transportation t
                 where t.originLocation.id = :originLocation

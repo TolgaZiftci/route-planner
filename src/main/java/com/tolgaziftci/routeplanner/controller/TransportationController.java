@@ -51,7 +51,7 @@ public class TransportationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         TransportationDao newObject =
-                new TransportationDao(0, originLocation.get(), destLocation.get(), transportation.getType());
+                new TransportationDao(0, originLocation.get(), destLocation.get(), transportation.getType(), transportation.getOperatingDays());
         return new ResponseEntity<>(transportationRepository.save(newObject), HttpStatus.OK);
     }
 

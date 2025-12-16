@@ -30,8 +30,8 @@ public class RouteFinder {
      */
     public void init(List<TransportationSummary> transportations) {
         for (TransportationSummary transportation : transportations) {
-            graph.computeIfAbsent(transportation.originId(), k -> new ArrayList<>()).add(
-                    new GraphEdge(transportation.destId(), transportation.type()));
+            graph.computeIfAbsent(transportation.getOriginId(), k -> new ArrayList<>()).add(
+                    new GraphEdge(transportation.getDestId(), transportation.getType()));
         }
     }
 

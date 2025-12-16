@@ -1,15 +1,9 @@
 package com.tolgaziftci.routeplanner.dao;
 
 import com.tolgaziftci.routeplanner.entity.TransportationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import io.hypersistence.utils.hibernate.type.array.IntArrayType;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "transportation")
 @Table(name = "transportations")
@@ -29,14 +23,19 @@ public class TransportationDao {
     @Enumerated(EnumType.ORDINAL)
     private TransportationType type;
 
+    @Type(IntArrayType.class)
+    @Column(columnDefinition = "integer[]")
+    private int[] operatingDays;
+
     public TransportationDao() {
     }
 
-    public TransportationDao(int id, LocationDao originLocation, LocationDao destLocation, TransportationType type) {
+    public TransportationDao(int id, LocationDao originLocation, LocationDao destLocation, TransportationType type, int[] operatingDays) {
         this.id = id;
         this.originLocation = originLocation;
         this.destLocation = destLocation;
         this.type = type;
+        this.operatingDays = operatingDays;
     }
 
     public int getId() {
@@ -69,5 +68,13 @@ public class TransportationDao {
 
     public void setType(TransportationType type) {
         this.type = type;
+    }
+
+    public int[] getOperatingDays() {
+        return operatingDays;
+    }
+
+    public void setOperatingDays(int[] operatingDays) {
+        this.operatingDays = operatingDays;
     }
 }
