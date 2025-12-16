@@ -8,8 +8,6 @@ import com.tolgaziftci.routeplanner.route.RouteService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/route")
-public class RouteController {
+public class RouteController implements IRouteController {
 
     private final TransportationRepository transportationRepository;
 
@@ -31,7 +28,6 @@ public class RouteController {
         this.routeService = routeService;
     }
 
-    @GetMapping
     public ResponseEntity<List<Route>> findRoutes(@RequestParam int originLocation, @RequestParam int destLocation,
                                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         List<FullRoute> routes = routeService.getAllRoutes(originLocation, destLocation, date);
