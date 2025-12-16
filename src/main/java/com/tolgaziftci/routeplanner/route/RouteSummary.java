@@ -4,11 +4,11 @@ import com.tolgaziftci.routeplanner.entity.TransportationType;
 
 import java.util.List;
 
-public class FullRoute {
+public class RouteSummary {
     private final List<Integer> nodes;
     private final List<TransportationType> types;
 
-    public FullRoute(List<Integer> nodes, List<TransportationType> types) {
+    public RouteSummary(List<Integer> nodes, List<TransportationType> types) {
         this.nodes = nodes;
         this.types = types;
     }

@@ -1,7 +1,7 @@
 package com.tolgaziftci.routeplanner.controller;
 
 import com.tolgaziftci.routeplanner.dao.TransportationDao;
-import com.tolgaziftci.routeplanner.dto.TransportationDto;
+import com.tolgaziftci.routeplanner.request.TransportationRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -70,7 +70,7 @@ public interface ITransportationController {
             useReturnTypeSchema = true
     )
     @PostMapping
-    ResponseEntity<TransportationDao> addTransportation(@RequestBody TransportationDto transportation);
+    ResponseEntity<TransportationDao> addTransportation(@RequestBody TransportationRequest transportation);
 
     @Operation(
             summary = "Delete a transportation from the database",

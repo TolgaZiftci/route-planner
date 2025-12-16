@@ -37,10 +37,11 @@ public class RouteFinder {
 
     /**
      * Use iterative DFS to find all routes to the destination
+     *
      * @return list of routes
      */
-    public List<FullRoute> findRoutes() {
-        List<FullRoute> result = new ArrayList<>();
+    public List<RouteSummary> findRoutes() {
+        List<RouteSummary> result = new ArrayList<>();
         Deque<State> stack = new ArrayDeque<>();
         Set<Integer> visited = new HashSet<>();
 
@@ -99,7 +100,7 @@ public class RouteFinder {
         return result;
     }
 
-    private static FullRoute reconstructFullPath(State state) {
+    private static RouteSummary reconstructFullPath(State state) {
         LinkedList<Integer> nodes = new LinkedList<>();
         LinkedList<TransportationType> types = new LinkedList<>();
 
@@ -112,7 +113,7 @@ public class RouteFinder {
             cur = cur.parent;
         }
 
-        return new FullRoute(nodes, types);
+        return new RouteSummary(nodes, types);
     }
 
     /**

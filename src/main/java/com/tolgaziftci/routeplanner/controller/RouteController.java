@@ -4,7 +4,7 @@ import com.tolgaziftci.routeplanner.dao.TransportationDao;
 import com.tolgaziftci.routeplanner.entity.Route;
 import com.tolgaziftci.routeplanner.repository.LocationRepository;
 import com.tolgaziftci.routeplanner.repository.TransportationRepository;
-import com.tolgaziftci.routeplanner.route.FullRoute;
+import com.tolgaziftci.routeplanner.route.RouteSummary;
 import com.tolgaziftci.routeplanner.route.RouteService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -37,10 +37,10 @@ public class RouteController implements IRouteController {
         if (!locationRepository.existsById(originLocation) || !locationRepository.existsById(destLocation)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        List<FullRoute> routes = routeService.getAllRoutes(originLocation, destLocation, date);
+        List<RouteSummary> routes = routeService.getAllRoutes(originLocation, destLocation, date);
         routes.sort(Comparator.comparingInt(o -> o.getNodes().size()));
         List<Route> response = new ArrayList<>(routes.size());
-        for (FullRoute route : routes) {
+        for (RouteSummary route : routes) {
             List<TransportationDao> transportations = new ArrayList<>(route.getTypes().size());
             for (int i = 0; i < route.getTypes().size(); i++) {
                 transportations.add(transportationRepository.findByOriginLocation_IdAndDestLocation_IdAndType(

@@ -1,17 +1,17 @@
-package com.tolgaziftci.routeplanner.dto;
+package com.tolgaziftci.routeplanner.request;
 
 import com.tolgaziftci.routeplanner.entity.TransportationType;
 
-public class TransportationDto {
+public class TransportationRequest {
     private int originLocation;
     private int destLocation;
     private TransportationType type;
     private int[] operatingDays;
 
-    public TransportationDto() {
+    public TransportationRequest() {
     }
 
-    public TransportationDto(int originLocation, int destLocation, TransportationType type, int[] operatingDays) {
+    public TransportationRequest(int originLocation, int destLocation, TransportationType type, int[] operatingDays) {
         this.originLocation = originLocation;
         this.destLocation = destLocation;
         this.type = type;

@@ -1,7 +1,7 @@
 package com.tolgaziftci.routeplanner.controller;
 
 import com.tolgaziftci.routeplanner.dao.LocationDao;
-import com.tolgaziftci.routeplanner.entity.Location;
+import com.tolgaziftci.routeplanner.request.LocationRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,7 +21,7 @@ import java.util.List;
 public interface ILocationController {
 
     @Operation(
-            summary = "Get a location by its ID",
+            summary = "Get a locationRequest by its ID",
             parameters = {@Parameter(name = "id", description = "Location ID")},
             tags = {"get"}
     )
@@ -31,7 +31,7 @@ public interface ILocationController {
     )
     @ApiResponse(
             responseCode = "204",
-            description = "If a location with the given ID does not exist"
+            description = "If a locationRequest with the given ID does not exist"
     )
     @GetMapping("/{id}")
     public ResponseEntity<LocationDao> findLocationById(@PathVariable int id);
@@ -49,48 +49,48 @@ public interface ILocationController {
     public ResponseEntity<List<LocationDao>> getAllLocations();
 
     @Operation(
-            summary = "Add a new location to the database",
+            summary = "Add a new locationRequest to the database",
             tags = {"post"}
     )
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = """
                     name: Location name
                     
-                    country: Country of location
+                    country: Country of locationRequest
                     
-                    city: City of location
+                    city: City of locationRequest
                     
-                    locationCode: The code for the location (IATA airport codes are used for airports)
+                    locationCode: The code for the locationRequest (IATA airport codes are used for airports)
                     """
     )
     @ApiResponse(
             responseCode = "400",
-            description = "If the location already exists"
+            description = "If the locationRequest already exists"
     )
     @ApiResponse(
             responseCode = "200",
-            description = "Full specification of the new location including ID",
+            description = "Full specification of the new locationRequest including ID",
             useReturnTypeSchema = true
     )
     @PostMapping
-    public ResponseEntity<LocationDao> addLocation(@RequestBody Location location);
+    public ResponseEntity<LocationDao> addLocation(@RequestBody LocationRequest location);
 
     @Operation(
-            summary = "Delete a location from the database",
-            parameters = {@Parameter(name = "id", description = "ID of the location to delete")},
+            summary = "Delete a locationRequest from the database",
+            parameters = {@Parameter(name = "id", description = "ID of the locationRequest to delete")},
             tags = {"delete"}
     )
     @ApiResponse(
             responseCode = "404",
-            description = "If the location does not exist"
+            description = "If the locationRequest does not exist"
     )
     @ApiResponse(
             responseCode = "400",
-            description = "If the location has transportations attached"
+            description = "If the locationRequest has transportations attached"
     )
     @ApiResponse(
             responseCode = "200",
-            description = "If the location was successfully deleted"
+            description = "If the locationRequest was successfully deleted"
     )
     @DeleteMapping("/{id}")
     public ResponseEntity<LocationDao> removeLocation(@PathVariable int id);

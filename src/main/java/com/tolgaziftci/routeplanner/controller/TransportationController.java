@@ -2,7 +2,7 @@ package com.tolgaziftci.routeplanner.controller;
 
 import com.tolgaziftci.routeplanner.dao.LocationDao;
 import com.tolgaziftci.routeplanner.dao.TransportationDao;
-import com.tolgaziftci.routeplanner.dto.TransportationDto;
+import com.tolgaziftci.routeplanner.request.TransportationRequest;
 import com.tolgaziftci.routeplanner.repository.LocationRepository;
 import com.tolgaziftci.routeplanner.repository.TransportationRepository;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class TransportationController implements ITransportationController {
         return new ResponseEntity<>(transportationRepository.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity<TransportationDao> addTransportation(@RequestBody TransportationDto transportation) {
+    public ResponseEntity<TransportationDao> addTransportation(@RequestBody TransportationRequest transportation) {
         Optional<LocationDao> originLocation = locationRepository.findById(transportation.getOriginLocation());
         Optional<LocationDao> destLocation = locationRepository.findById(transportation.getDestLocation());
         if (originLocation.isEmpty() || destLocation.isEmpty()) {

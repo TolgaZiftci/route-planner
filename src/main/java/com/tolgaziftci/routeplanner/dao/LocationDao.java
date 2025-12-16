@@ -1,6 +1,5 @@
 package com.tolgaziftci.routeplanner.dao;
 
-import com.tolgaziftci.routeplanner.entity.Location;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,13 +34,6 @@ public class LocationDao {
         this.country = country;
         this.city = city;
         this.locationCode = locationCode;
-    }
-
-    public LocationDao(Location location) {
-        this.name = location.name();
-        this.country = location.country();
-        this.city = location.city();
-        this.locationCode = location.locationCode();
     }
 
     public int getId() {

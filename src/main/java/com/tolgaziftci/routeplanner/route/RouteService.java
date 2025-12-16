@@ -30,7 +30,7 @@ public class RouteService {
      * @param destLocation ID of destination location
      * @return list of routes fitting the constraints
      */
-    public List<FullRoute> getAllRoutes(int originLocation, int destLocation, LocalDate date) {
+    public List<RouteSummary> getAllRoutes(int originLocation, int destLocation, LocalDate date) {
         RouteFinder finder = new RouteFinder(originLocation, destLocation);
         finder.init(getPathGraph(originLocation, destLocation, date.getDayOfWeek().getValue()));
         return finder.findRoutes();
@@ -51,7 +51,7 @@ public class RouteService {
 
         return Stream.of(firstPaths, secondPaths, thirdPaths).flatMap(List::stream)
                 .filter(transport -> {
-                    for (Integer operatingDay : transport.getOperatingDays()) {
+                    for (int operatingDay : transport.getOperatingDays()) {
                         if (operatingDay == dayOfWeek) return true;
                     }
                     return false;
