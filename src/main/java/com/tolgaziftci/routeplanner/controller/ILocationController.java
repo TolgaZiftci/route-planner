@@ -85,6 +85,10 @@ public interface ILocationController {
             description = "If the location does not exist"
     )
     @ApiResponse(
+            responseCode = "400",
+            description = "If the location has transportations attached"
+    )
+    @ApiResponse(
             responseCode = "200",
             description = "If the location was successfully deleted"
     )

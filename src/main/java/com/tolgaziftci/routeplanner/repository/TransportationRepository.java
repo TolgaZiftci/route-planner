@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface TransportationRepository extends JpaRepository<TransportationDao, Integer> {
-    List<TransportationDao> findByOriginLocation_IdAndDestLocation_Id(int originLocation, int destLocation);
 
     @Query("""
             select new com.tolgaziftci.routeplanner.dao.TransportationSummary(
@@ -28,8 +27,6 @@ public interface TransportationRepository extends JpaRepository<TransportationDa
             """)
     List<TransportationSummary> findKeysByOriginLocation_IdAndDestLocation_Id(int originLocation, int destLocation);
 
-    List<TransportationDao> findByOriginLocation_Id(int originLocation);
-
     @Query("""
             select new com.tolgaziftci.routeplanner.dao.TransportationSummary(
                     t.id,
@@ -43,7 +40,7 @@ public interface TransportationRepository extends JpaRepository<TransportationDa
             """)
     List<TransportationSummary> findKeysByOriginLocation_Id(int originLocation);
 
-    List<TransportationDao> findByDestLocation_Id(int destLocation);
-
     Optional<TransportationDao> findByOriginLocation_IdAndDestLocation_IdAndType(int originLocation, int destLocation, TransportationType type);
+
+    boolean existsByOriginLocation_IdAndDestLocation_IdAndType(int originLocation, int destLocation, TransportationType type);
 }

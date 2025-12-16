@@ -3,6 +3,7 @@ package com.tolgaziftci.routeplanner.controller;
 import com.tolgaziftci.routeplanner.dao.LocationDao;
 import com.tolgaziftci.routeplanner.entity.Location;
 import com.tolgaziftci.routeplanner.repository.LocationRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,12 +33,20 @@ public class LocationController implements ILocationController {
     }
 
     public ResponseEntity<LocationDao> addLocation(@RequestBody Location location) {
+        if (repository.existsByNameAndCityAndCountryAndLocationCode(
+                location.name(), location.city(), location.country(), location.locationCode())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(repository.save(new LocationDao(location)), HttpStatus.OK);
     }
 
     public ResponseEntity<LocationDao> removeLocation(@PathVariable int id) {
         if (repository.existsById(id)) {
-            repository.deleteById(id);
+            try {
+                repository.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

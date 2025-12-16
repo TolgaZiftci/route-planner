@@ -62,7 +62,7 @@ public interface ITransportationController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "If the origin and destination locations does not exist"
+            description = "If the origin and destination locations does not exist, or the transportation already exists"
     )
     @ApiResponse(
             responseCode = "200",

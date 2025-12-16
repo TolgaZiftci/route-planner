@@ -41,6 +41,10 @@ public class TransportationController implements ITransportationController {
         if (originLocation.isEmpty() || destLocation.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if (transportationRepository.existsByOriginLocation_IdAndDestLocation_IdAndType(
+                transportation.getOriginLocation(), transportation.getDestLocation(), transportation.getType())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         TransportationDao newObject =
                 new TransportationDao(0, originLocation.get(), destLocation.get(), transportation.getType(), transportation.getOperatingDays());
         return new ResponseEntity<>(transportationRepository.save(newObject), HttpStatus.OK);

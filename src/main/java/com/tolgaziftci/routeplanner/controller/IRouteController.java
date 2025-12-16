@@ -27,6 +27,10 @@ public interface IRouteController {
             tags = {"get"}
     )
     @ApiResponse(
+            responseCode = "400",
+            description = "If the origin or destination location does not exist"
+    )
+    @ApiResponse(
             responseCode = "200",
             useReturnTypeSchema = true
     )

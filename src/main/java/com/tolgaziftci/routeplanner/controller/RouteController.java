@@ -2,6 +2,7 @@ package com.tolgaziftci.routeplanner.controller;
 
 import com.tolgaziftci.routeplanner.dao.TransportationDao;
 import com.tolgaziftci.routeplanner.entity.Route;
+import com.tolgaziftci.routeplanner.repository.LocationRepository;
 import com.tolgaziftci.routeplanner.repository.TransportationRepository;
 import com.tolgaziftci.routeplanner.route.FullRoute;
 import com.tolgaziftci.routeplanner.route.RouteService;
@@ -21,15 +22,21 @@ public class RouteController implements IRouteController {
 
     private final TransportationRepository transportationRepository;
 
+    private final LocationRepository locationRepository;
+
     private final RouteService routeService;
 
-    public RouteController(TransportationRepository transportationRepository, RouteService routeService) {
+    public RouteController(TransportationRepository transportationRepository, LocationRepository locationRepository, RouteService routeService) {
         this.transportationRepository = transportationRepository;
+        this.locationRepository = locationRepository;
         this.routeService = routeService;
     }
 
     public ResponseEntity<List<Route>> findRoutes(@RequestParam int originLocation, @RequestParam int destLocation,
                                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        if (!locationRepository.existsById(originLocation) || !locationRepository.existsById(destLocation)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<FullRoute> routes = routeService.getAllRoutes(originLocation, destLocation, date);
         routes.sort(Comparator.comparingInt(o -> o.getNodes().size()));
         List<Route> response = new ArrayList<>(routes.size());
