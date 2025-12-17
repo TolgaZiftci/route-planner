@@ -1,0 +1,243 @@
+.App {
+  text-align: left;
+}
+
+.Header {
+  height: 100px;
+  width: 100%;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  border-width: 2px 0 2px 0;
+  border-color: darkgray;
+  border-style: solid;
+}
+
+.Header h1 {
+  margin: 0;
+  margin-left: 50px;
+  text-align: left;
+}
+
+.Sidebar {
+  height: 100%;
+  width: fit-content;
+  position: fixed;
+  top: 104px;
+  left: 0;
+  background-color: lightgray;
+  overflow-x: hidden;
+  border-width: 0 2px 2px 0;
+  border-color: darkgray;
+  border-style: solid;
+}
+
+.Sidebar button {
+  padding: 12px 16px 12px 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+}
+
+.Sidebar a {
+  text-decoration: none;
+}
+
+.content {
+  position: relative;
+  margin-left: 150px;
+  padding: 20px;
+}
+
+.pagetitle {
+  margin: 10px 10px 10px 0;
+}
+
+.locationContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+
+.locationList {
+  width: 300px;
+  height: 600px;
+  background-color: lightgray;
+  border: 2px solid darkgray;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.locationPanel p {
+  margin: 5px;
+}
+
+.locationPanel input {
+  margin: 5px;
+}
+
+.locationPanel button {
+  margin-top: 5px;
+  margin-left: auto;
+  display: block;
+}
+
+.Location {
+  background-color: whitesmoke;
+  border: 1px solid black;
+  margin: 5px 10px 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.Location p {
+  margin: 2px 0 2px 0;
+  text-align: center;
+}
+
+.Location button {
+  margin: 2px 0 2px 0;
+  text-align: center;
+}
+
+.Location:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.02);
+}
+
+.transportationContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+
+.transportationList {
+  width: 300px;
+  height: 600px;
+  background-color: lightgray;
+  border: 2px solid darkgray;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.transportationPanel p {
+  margin: 5px;
+}
+
+.transportationPanel input {
+  margin: 5px;
+}
+
+.transportationPanel button {
+  margin-top: 5px;
+  margin-left: auto;
+  display: block;
+}
+
+.Transportation {
+  background-color: whitesmoke;
+  border: 1px solid black;
+  margin: 5px 10px 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.Transportation p {
+  margin: 2px 0 2px 0;
+  text-align: center;
+}
+
+.Transportation button {
+  margin: 2px 0 2px 0;
+  text-align: center;
+}
+
+.Transportation:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.02);
+}
+
+.routeResults {
+  display: flex;
+  margin-top: 20px;
+}
+
+.routeList {
+  width: 300px;
+  height: 600px;
+  background-color: lightgray;
+  border: 2px solid darkgray;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.routeInputs {
+  display: grid;
+  grid-template-columns: repeat(3, 25%);
+  gap: 20px;
+}
+
+.inputGroup p {
+  margin-bottom: 5px;
+}
+
+.findRouteButton {
+  padding: 12px 16px 12px 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.RouteElement {
+  background-color: whitesmoke;
+  border: 1px solid black;
+  margin: 5px 10px 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  text-align: center;
+}
+
+.RouteElement:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.02);
+}
+
+.routePanel {
+  margin-left: 50px;
+  padding: 20px;
+  padding-top: 0;
+}
+
+.routePanel h3 {
+  margin-top: 0;
+}
+
+.routeNode {
+  display: flex;
+  position: relative;
+  padding-left: 30px;
+}
+
+.routeNode p {
+  margin: 0;
+}
+
+.routeNode .circle {
+  width: 12px;
+  height: 12px;
+  border: 3px solid #333;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  left: 0;
+}
+
+.routeTransport {
+  margin-left: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
