@@ -5,7 +5,10 @@ import com.tolgaziftci.routeplanner.repository.TransportationRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -38,18 +41,18 @@ public class RouteService {
 
     private List<TransportationSummary> getPathGraph(int originLocation, int destLocation, int dayOfWeek) {
         // Get all nodes that we can reach directly
-        List<TransportationSummary> firstPaths = transportationRepository.findKeysByOriginLocation_Id(originLocation);
+        Set<TransportationSummary> firstPaths = new HashSet<>(transportationRepository.findKeysByOriginLocation_Id(originLocation));
 
         // Get all nodes that can be reached from the first set of nodes
-        List<TransportationSummary> secondPaths = firstPaths.stream().map(initialLocation ->
-                transportationRepository.findKeysByOriginLocation_Id(initialLocation.getDestId())).flatMap(List::stream).toList();
+        Set<TransportationSummary> secondPaths = firstPaths.stream().map(initialLocation ->
+                transportationRepository.findKeysByOriginLocation_Id(initialLocation.getDestId())).flatMap(List::stream).collect(Collectors.toSet());
 
         // Get all nodes that can be reached from the second set of nodes
         // The route cannot be longer than three nodes, so here we can filter by destination location
-        List<TransportationSummary> thirdPaths = secondPaths.stream().map(initialLocation ->
-                transportationRepository.findKeysByOriginLocation_IdAndDestLocation_Id(initialLocation.getDestId(), destLocation)).flatMap(List::stream).toList();
+        Set<TransportationSummary> thirdPaths = secondPaths.stream().map(initialLocation ->
+                transportationRepository.findKeysByOriginLocation_IdAndDestLocation_Id(initialLocation.getDestId(), destLocation)).flatMap(List::stream).collect(Collectors.toSet());
 
-        return Stream.of(firstPaths, secondPaths, thirdPaths).flatMap(List::stream)
+        return Stream.of(firstPaths, secondPaths, thirdPaths).flatMap(Set::stream)
                 .filter(transport -> {
                     for (int operatingDay : transport.getOperatingDays()) {
                         if (operatingDay == dayOfWeek) return true;
