@@ -51,6 +51,7 @@ export default function RoutePlanning() {
             return;
         }
         const data = await response.json();
+        setSelectedRoute(null);
         setRoutes(data);
     };
 

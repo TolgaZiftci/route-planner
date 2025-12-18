@@ -39,7 +39,7 @@ public class RouteService {
         return finder.findRoutes();
     }
 
-    private List<TransportationSummary> getPathGraph(int originLocation, int destLocation, int dayOfWeek) {
+    private Set<TransportationSummary> getPathGraph(int originLocation, int destLocation, int dayOfWeek) {
         // Get all nodes that we can reach directly
         Set<TransportationSummary> firstPaths = new HashSet<>(transportationRepository.findKeysByOriginLocation_Id(originLocation));
 
@@ -58,6 +58,6 @@ public class RouteService {
                         if (operatingDay == dayOfWeek) return true;
                     }
                     return false;
-                }).toList();
+                }).collect(Collectors.toSet());
     }
 }

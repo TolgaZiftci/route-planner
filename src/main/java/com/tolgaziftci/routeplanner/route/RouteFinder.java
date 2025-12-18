@@ -28,7 +28,7 @@ public class RouteFinder {
     /**
      * Initialize the route graph for traversal
      */
-    public void init(List<TransportationSummary> transportations) {
+    public void init(Set<TransportationSummary> transportations) {
         for (TransportationSummary transportation : transportations) {
             graph.computeIfAbsent(transportation.getOriginId(), k -> new ArrayList<>()).add(
                     new GraphEdge(transportation.getDestId(), transportation.getType()));
