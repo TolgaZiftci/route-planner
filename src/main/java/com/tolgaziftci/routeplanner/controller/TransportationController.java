@@ -36,7 +36,7 @@ public class TransportationController implements ITransportationController {
     }
 
     public ResponseEntity<TransportationDao> addTransportation(@RequestBody TransportationRequest transportation) {
-        if (transportation.getOriginLocation() == transportation.getDestLocation()) {
+        if (transportation.getOriginLocation() == transportation.getDestLocation() || transportation.getOperatingDays().length == 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Optional<LocationDao> originLocation = locationRepository.findById(transportation.getOriginLocation());
@@ -59,5 +59,31 @@ public class TransportationController implements ITransportationController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public ResponseEntity<TransportationDao> updateTransportation(@PathVariable int id, @RequestBody TransportationRequest transportation) {
+        if (transportation.getOriginLocation() == transportation.getDestLocation() || transportation.getOperatingDays().length == 0) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!transportationRepository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<LocationDao> originLocation = locationRepository.findById(transportation.getOriginLocation());
+        Optional<LocationDao> destLocation = locationRepository.findById(transportation.getDestLocation());
+        if (originLocation.isEmpty() || destLocation.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (transportationRepository.existsByOriginLocation_IdAndDestLocation_IdAndTypeAndOperatingDays(
+                transportation.getOriginLocation(), transportation.getDestLocation(), transportation.getType(), transportation.getOperatingDays())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        TransportationDao transportToUpdate = transportationRepository.findById(id).get();
+        transportToUpdate.setOriginLocation(originLocation.get());
+        transportToUpdate.setDestLocation(destLocation.get());
+        transportToUpdate.setType(transportation.getType());
+        transportToUpdate.setOperatingDays(transportation.getOperatingDays());
+        TransportationDao newTransport = transportationRepository.save(transportToUpdate);
+        return new ResponseEntity<>(newTransport, HttpStatus.OK);
     }
 }

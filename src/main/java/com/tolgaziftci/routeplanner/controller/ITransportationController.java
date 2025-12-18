@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -62,8 +63,8 @@ public interface ITransportationController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "If the origin and destination locations are the same, or if the origin and destination locations does not exist, " +
-                    "or the transportation already exists"
+            description = "If the origin and destination locations are the same, or the operating days are empty, " +
+                    "or if the origin and destination locations does not exist, or the transportation already exists"
     )
     @ApiResponse(
             responseCode = "200",
@@ -88,4 +89,34 @@ public interface ITransportationController {
     )
     @DeleteMapping("/{id}")
     ResponseEntity<TransportationDao> removeTransportation(@PathVariable int id);
+
+    @Operation(
+            summary = "Update a transportation in the database",
+            tags = {"put"}
+    )
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = """
+                    originLocation and destLocation: Location IDs
+                    
+                    type: Transportation type (can be FLIGHT, UBER, BUS, SUBWAY)
+                    
+                    operatingDays: Array of integers representing the days of week the transportation is active
+                    """
+    )
+    @ApiResponse(
+            responseCode = "404",
+            description = "If the transportation doesn't exist"
+    )
+    @ApiResponse(
+            responseCode = "400",
+            description = "If the origin and destination locations are the same, " +
+                    "or the operating days are empty, or if the origin and destination locations does not exist"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Full specification of the updated transportation including ID",
+            useReturnTypeSchema = true
+    )
+    @PutMapping("/{id}")
+    ResponseEntity<TransportationDao> updateTransportation(@PathVariable int id, @RequestBody TransportationRequest transportation);
 }

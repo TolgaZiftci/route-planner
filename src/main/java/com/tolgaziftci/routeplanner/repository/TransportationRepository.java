@@ -43,4 +43,6 @@ public interface TransportationRepository extends JpaRepository<TransportationDa
     Optional<TransportationDao> findByOriginLocation_IdAndDestLocation_IdAndType(int originLocation, int destLocation, TransportationType type);
 
     boolean existsByOriginLocation_IdAndDestLocation_IdAndType(int originLocation, int destLocation, TransportationType type);
+
+    boolean existsByOriginLocation_IdAndDestLocation_IdAndTypeAndOperatingDays(int originLocation, int destLocation, TransportationType type, int[] operatingDays);
 }
