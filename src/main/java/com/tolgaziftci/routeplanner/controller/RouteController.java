@@ -34,7 +34,8 @@ public class RouteController implements IRouteController {
 
     public ResponseEntity<List<Route>> findRoutes(@RequestParam int originLocation, @RequestParam int destLocation,
                                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        if (!locationRepository.existsById(originLocation) || !locationRepository.existsById(destLocation)) {
+        if ((originLocation == destLocation) ||
+                !locationRepository.existsById(originLocation) || !locationRepository.existsById(destLocation)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<RouteSummary> routes = routeService.getAllRoutes(originLocation, destLocation, date);

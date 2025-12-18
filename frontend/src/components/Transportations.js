@@ -28,7 +28,7 @@ export default function Transportations() {
             });
 
             if (!response.ok) {
-                alert("Add failed: Transportation already exists");
+                alert("Add failed: Transportation already exists or origin and destination is the same");
                 return;
             }
 

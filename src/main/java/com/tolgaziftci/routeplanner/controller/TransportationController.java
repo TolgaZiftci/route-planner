@@ -36,6 +36,9 @@ public class TransportationController implements ITransportationController {
     }
 
     public ResponseEntity<TransportationDao> addTransportation(@RequestBody TransportationRequest transportation) {
+        if (transportation.getOriginLocation() == transportation.getDestLocation()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Optional<LocationDao> originLocation = locationRepository.findById(transportation.getOriginLocation());
         Optional<LocationDao> destLocation = locationRepository.findById(transportation.getDestLocation());
         if (originLocation.isEmpty() || destLocation.isEmpty()) {

@@ -28,7 +28,7 @@ public interface IRouteController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "If the origin or destination location does not exist"
+            description = "If the origin or destination location does not exist or the origin and destination is the same"
     )
     @ApiResponse(
             responseCode = "200",
