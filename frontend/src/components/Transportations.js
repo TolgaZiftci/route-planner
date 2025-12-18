@@ -64,6 +64,28 @@ export default function Transportations() {
         }
     };
 
+    const handleUpdate = async (id, transportationData) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/transportation/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(transportationData)
+            });
+
+            if (!response.ok) {
+                alert("Update failed: Transportation already exists or origin/destination invalid");
+                return;
+            }
+
+            loadTransportations();
+            setSelected(null); // close panel after update
+
+        } catch (error) {
+            alert("Network error while updating the transportation");
+            console.error(error);
+        }
+    };
+
     return (
         <div>
             <p className="pagetitle">
@@ -91,7 +113,7 @@ export default function Transportations() {
                         />
                     ))}
                 </div>
-                <TransportationPanel selected={selected} onAdd={handleAdd}/>
+                <TransportationPanel selected={selected} onAdd={handleAdd} onUpdate={handleUpdate} />
             </div>
         </div>
     );

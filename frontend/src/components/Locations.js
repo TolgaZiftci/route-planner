@@ -27,7 +27,7 @@ export default function Locations() {
             });
 
             if (!response.ok) {
-                alert("Add failed: Location already exists");
+                alert("Add failed: Location already exists or fields left empty");
                 return;
             }
 
@@ -67,6 +67,28 @@ export default function Locations() {
         }
     };
 
+    const handleUpdate = async (id, locationData) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/location/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(locationData)
+            });
+
+            if (!response.ok) {
+                alert("Update failed: Location already exists or fields left empty");
+                return;
+            }
+
+            loadLocations();
+            setSelected(null); // close panel after update
+
+        } catch (error) {
+            alert("Network error while updating the location");
+            console.error(error);
+        }
+    };
+    
     return (
         <div>
             <p className="pagetitle">
@@ -94,7 +116,7 @@ export default function Locations() {
                         />
                     ))}
                 </div>
-                <LocationPanel selected={selected} onAdd={handleAdd}/>
+                <LocationPanel selected={selected} onAdd={handleAdd} onUpdate={handleUpdate} />
             </div>
         </div>
     );

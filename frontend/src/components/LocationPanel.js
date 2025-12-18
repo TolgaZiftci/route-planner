@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function LocationPanel({ selected, onAdd }) {
+export default function LocationPanel({ selected, onAdd, onUpdate }) {
 
     const [form, setForm] = useState({
         name: "",
@@ -27,8 +27,6 @@ export default function LocationPanel({ selected, onAdd }) {
         }
     }, [selected]);
 
-    const disabled = !!selected;
-
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -46,19 +44,34 @@ export default function LocationPanel({ selected, onAdd }) {
     return (
         <div className="locationPanel">
             <p>Location Name</p>
-            <input name="name" value={form.name} onChange={handleChange} disabled={disabled} />
+            <input name="name" value={form.name} onChange={handleChange} />
 
             <p>Country</p>
-            <input name="country" value={form.country} onChange={handleChange} disabled={disabled} />
+            <input name="country" value={form.country} onChange={handleChange} />
 
             <p>City</p>
-            <input name="city" value={form.city} onChange={handleChange} disabled={disabled} />
+            <input name="city" value={form.city} onChange={handleChange} />
 
             <p>Location Code</p>
-            <input name="code" value={form.code} onChange={handleChange} disabled={disabled} />
+            <input name="code" value={form.code} onChange={handleChange} />
 
-            {!disabled && (
+            {!selected && (
                 <button onClick={handleAdd}>Add Location</button>
+            )}
+
+            {selected && (
+                <button
+                    onClick={() =>
+                        onUpdate(selected.id, {
+                            name: form.name,
+                            country: form.country,
+                            city: form.city,
+                            locationCode: form.code
+                        })
+                    }
+                >
+                    Update Location
+                </button>
             )}
         </div>
     );

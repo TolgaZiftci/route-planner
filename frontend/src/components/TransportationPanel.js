@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function TransportationPanel({ selected, onAdd }) {
+export default function TransportationPanel({ selected, onAdd, onUpdate }) {
 
     const [form, setForm] = useState({
         originLocation: "",
@@ -39,15 +39,11 @@ export default function TransportationPanel({ selected, onAdd }) {
         }
     }, [selected]);
 
-    const disabled = !!selected;
-
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     const toggleDay = (day) => {
-        if (disabled) return;
-
         setForm(prev => {
             const exists = prev.operatingDays.includes(day);
             return {
@@ -90,9 +86,9 @@ export default function TransportationPanel({ selected, onAdd }) {
     return (
         <div className="transportationPanel">
             <p>Origin Location</p>
-            <input placeholder="Search..." value={originSearch} onChange={(e) => setOriginSearch(e.target.value)} disabled={disabled} />
+            <input placeholder="Search..." value={originSearch} onChange={(e) => setOriginSearch(e.target.value)} />
 
-            <select name="originLocation" value={form.originLocation} onChange={handleChange} disabled={disabled} >
+            <select name="originLocation" value={form.originLocation} onChange={handleChange} >
                 <option value="">Select origin</option>
                 {filteredOrigin.map(loc => (
                     <option key={loc.id} value={loc.id}>
@@ -102,9 +98,9 @@ export default function TransportationPanel({ selected, onAdd }) {
             </select>
 
             <p>Destination Location</p>
-            <input placeholder="Search..." value={destSearch} onChange={(e) => setDestSearch(e.target.value)} disabled={disabled} />
+            <input placeholder="Search..." value={destSearch} onChange={(e) => setDestSearch(e.target.value)} />
 
-            <select name="destLocation" value={form.destLocation} onChange={handleChange} disabled={disabled} >
+            <select name="destLocation" value={form.destLocation} onChange={handleChange} >
                 <option value="">Select destination</option>
                 {filteredDest.map(loc => (
                     <option key={loc.id} value={loc.id}>
@@ -114,7 +110,7 @@ export default function TransportationPanel({ selected, onAdd }) {
             </select>
 
             <p>Type</p>
-            <select name="type" value={form.type} onChange={handleChange} disabled={disabled} >
+            <select name="type" value={form.type} onChange={handleChange} >
                 <option value="">Select type</option>
                 <option value="FLIGHT">FLIGHT</option>
                 <option value="BUS">BUS</option>
@@ -132,7 +128,6 @@ export default function TransportationPanel({ selected, onAdd }) {
                                 type="checkbox"
                                 checked={form.operatingDays.includes(dayNumber)}
                                 onChange={() => toggleDay(dayNumber)}
-                                disabled={disabled}
                             />
                             {label}
                         </label>
@@ -140,8 +135,23 @@ export default function TransportationPanel({ selected, onAdd }) {
                 })}
             </div>
 
-            {!disabled && (
+            {!selected && (
                 <button onClick={handleAdd}>Add Transportation</button>
+            )}
+
+            {selected && (
+                <button
+                    onClick={() =>
+                        onUpdate(selected.id, {
+                            originLocation: Number(form.originLocation),
+                            destLocation: Number(form.destLocation),
+                            type: form.type,
+                            operatingDays: form.operatingDays
+                        })
+                    }
+                >
+                    Update Transportation
+                </button>
             )}
         </div>
     );
