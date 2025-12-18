@@ -199,6 +199,8 @@
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.15s ease;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .RouteElement:hover {
