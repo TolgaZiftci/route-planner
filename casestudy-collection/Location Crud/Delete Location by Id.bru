@@ -1,0 +1,16 @@
+meta {
+  name: Delete Location by Id
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:8080/api/locationRequest/3
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

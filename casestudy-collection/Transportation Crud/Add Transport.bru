@@ -1,0 +1,25 @@
+meta {
+  name: Add Transport
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/transportation
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "originLocation": 2,
+    "destLocation": 4,
+    "type": "SUBWAY",
+    "operatingDays": [2,3]
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

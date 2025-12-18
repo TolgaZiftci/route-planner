@@ -1,0 +1,22 @@
+meta {
+  name: Find Route
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/api/route?originLocation=3&destLocation=4&date=2025-12-23
+  body: none
+  auth: inherit
+}
+
+params:query {
+  originLocation: 3
+  destLocation: 4
+  date: 2025-12-23
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
